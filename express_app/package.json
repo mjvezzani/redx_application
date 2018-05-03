@@ -1,0 +1,16 @@
+{
+  "name": "express_app",
+  "version": "1.0.0",
+  "description": "A REST API app for a simple photo browser",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mjvezzani@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "body-parser": "~1.0.1",
+    "express": "^4.16.3",
+    "sqlite3": "^4.0.0"
+  }
+}
