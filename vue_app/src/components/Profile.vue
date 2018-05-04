@@ -1,5 +1,11 @@
 <template>
-  <h1>Profile</h1>
+  <div>
+    <h1>Profile</h1>
+    <p>{{ user.name }}</p>
+    <p>{{ user.email }}</p>
+    <p>{{ user.phone }}</p>
+    <p>{{ user.number_of_photos }}</p>
+  </div>
 </template>
 
 <script>
@@ -8,6 +14,12 @@ export default {
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
+      user: {
+        name: 'Michael Vezzani',
+        email: 'mjvezzani@gmail.com',
+        phone: '209-201-9660',
+        number_of_photos: '37',
+      },
     };
   },
 };

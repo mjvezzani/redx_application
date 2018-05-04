@@ -1,5 +1,13 @@
 <template>
-  <h1>Login</h1>
+  <form id="loginForm" @submit.prevent="login">
+    <label for="userEmail">Email Address</label>
+    <input v-model="email" type="email" id="userEmail"
+           placeholder="Your Email Address" required autofocus>
+    <label for="userPassword">Password</label>
+    <input v-model="password" type="password" id="userPassword"
+          placeholder="Please type password" required>
+    <button type="submit">Sign In</button>
+  </form>
 </template>
 
 <script>
@@ -7,8 +15,14 @@ export default {
   name: 'Login',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      email: '',
+      password: '',
     };
+  },
+  methods: {
+    login() {
+      console.log('You have signed in');
+    },
   },
 };
 </script>

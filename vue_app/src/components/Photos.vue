@@ -1,5 +1,9 @@
 <template>
-  <h1>Photos</h1>
+  <ul id="photos">
+    <li v-for="photo in photos" :key="photo">
+      <p>{{ photo }}</p>
+    </li>
+  </ul>
 </template>
 
 <script>
@@ -8,6 +12,7 @@ export default {
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
+      photos: ['Photo1', 'Photo2', 'Photo3'],
     };
   },
 };
