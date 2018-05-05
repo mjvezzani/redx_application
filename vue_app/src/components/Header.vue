@@ -1,27 +1,17 @@
 <template>
   <div>
-    <Header />
-    <ul id="photos">
-      <li v-for="photo in photos" :key="photo">
-        <p>{{ photo }}</p>
-      </li>
-    </ul>
+    <router-link to="/photos">Photos</router-link>
+    <router-link to="/profile">Profile</router-link>
+    <router-link to="/dashboard">Dashboard</router-link>
   </div>
 </template>
 
 <script>
-import Header from '@/components/Header';
-
 export default {
-  name: 'Photos',
+  name: 'NavigationHeader',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      photos: ['Photo1', 'Photo2', 'Photo3'],
     };
-  },
-  components: {
-    Header,
   },
 };
 </script>
