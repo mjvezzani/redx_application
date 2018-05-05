@@ -1,11 +1,14 @@
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database(':memory:');
+var multer = require('multer');
+var upload = multer({ dest: 'uploads/' });
 
 db.serialize(function () {
   db.run("CREATE TABLE users (name TEXT)");
   db.run("INSERT INTO users (name) VALUES (?)", "Mike Vezzani");
   db.run("INSERT INTO users (name) VALUES (?)", "John Smith");
   db.run("INSERT INTO users (name) VALUES (?)", "Barry Manilow");
+  db.run("CREATE TABLE photos (name TEXT, content BLOB)");
 });
 
 var express = require('express');
@@ -14,6 +17,8 @@ var bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(upload.array());
+app.use(express.static('public'));
 
 var port = 8080;
 
@@ -36,17 +41,19 @@ router.get('/users', function(req, res) {
 router.post('/users', function(req, res) {
   db.run("INSERT INTO users (name) VALUES (?)", req.body.name);
   console.log(req.body.name + " added to users");
+  res.json({ message: "Success!" });
 });
 
-router.get('/photos' function(req, res) {
+router.get('/photos', function(req, res) {
   db.all("SELECT * FROM photos", function(err, rows){
     res.json({ photos: rows });
   });
 });
 
-router.post('/photos' function(req, res) {
-  db.run("INSERT INTO photos (name, file) VALUES (?, ?)", req.body.name, req.body.file);
-  console.log(req.body.name + " added to photos");
+router.post('/photos', upload.single('photo'), function(req, res, next) {
+  db.run("INSERT INTO photos (name, content) values (?, ?)", [req.file.name, req.file.buffer]);
+  console.log(req.file.name + " added to photos!");
+  res.json({message: "Success!"});
 });
 
 app.use('/api', router);
