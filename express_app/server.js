@@ -2,6 +2,7 @@ var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database(':memory:');
 var multer = require('multer');
 var upload = multer({ dest: 'uploads/' });
+var type = upload.single('file');
 
 db.serialize(function () {
   db.run("CREATE TABLE users (name TEXT)");
@@ -50,7 +51,8 @@ router.get('/photos', function(req, res) {
   });
 });
 
-router.post('/photos', upload.single('photo'), function(req, res, next) {
+router.post('/photos', type, function(req, res, next) {
+  console.log("Saving in DB");
   db.run("INSERT INTO photos (name, content) values (?, ?)", [req.file.name, req.file.buffer]);
   console.log(req.file.name + " added to photos!");
   res.json({message: "Success!"});
