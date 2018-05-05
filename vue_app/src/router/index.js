@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import DashboardPage from '@/components/DashboardPage';
 import Login from '@/components/Login';
 import Photos from '@/components/photos/Photos';
-import Profile from '@/components/profile/Profile';
+import ProfilePage from '@/components/profile/ProfilePage';
 
 Vue.use(Router);
 
@@ -21,8 +21,8 @@ export default new Router({
     },
     {
       path: '/profile',
-      name: 'Profile',
-      component: Profile,
+      name: 'ProfilePage',
+      component: ProfilePage,
     },
     {
       path: '/photos',

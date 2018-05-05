@@ -1,10 +1,10 @@
 <template>
   <div>
     <h1>Profile</h1>
-    <p>{{ user.name }}</p>
-    <p>{{ user.email }}</p>
-    <p>{{ user.phone }}</p>
-    <p>{{ user.number_of_photos }}</p>
+    <p>{{ $store.state.user.firstName }}</p>
+    <p>{{ $store.state.user.lastName}}</p>
+    <p>{{ $store.state.user.email }}</p>
+    <p>{{ $store.state.user.phone }}</p>
   </div>
 </template>
 

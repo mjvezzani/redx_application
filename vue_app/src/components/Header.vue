@@ -2,7 +2,7 @@
   <div>
     <router-link to="/photos">Photos</router-link>
     <router-link to="/profile">Profile</router-link>
-    <router-link to="/dashboard">Dashboard</router-link>
+    <router-link to="/">Dashboard</router-link>
   </div>
 </template>
 

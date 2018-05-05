@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <ul id="photos">
       <li v-for="photo in photos" :key="photo">
         <p>{{ photo }}</p>
@@ -10,7 +9,6 @@
 </template>
 
 <script>
-import Header from '@/components/Header';
 
 export default {
   name: 'Photos',
@@ -19,9 +17,6 @@ export default {
       msg: 'Welcome to Your Vue.js App',
       photos: ['Photo1', 'Photo2', 'Photo3'],
     };
-  },
-  components: {
-    Header,
   },
 };
 </script>

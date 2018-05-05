@@ -20,7 +20,6 @@ export default {
     return {
       email: '',
       password: '',
-      loggedIn: false,
     };
   },
   methods: {
