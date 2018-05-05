@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
+import DashboardPage from '@/components/DashboardPage';
 import Login from '@/components/Login';
-import Photos from '@/components/Photos';
-import Profile from '@/components/Profile';
+import Photos from '@/components/photos/Photos';
+import Profile from '@/components/profile/Profile';
 
 Vue.use(Router);
 
@@ -11,8 +11,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld,
+      name: 'DashboardPage',
+      component: DashboardPage,
     },
     {
       path: '/Login',

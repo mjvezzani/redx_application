@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <h1>Profile</h1>
     <p>{{ user.name }}</p>
     <p>{{ user.email }}</p>
@@ -10,7 +9,6 @@
 </template>
 
 <script>
-import Header from '@/components/Header'
 
 export default {
   name: 'Profile',
@@ -24,9 +22,6 @@ export default {
         number_of_photos: '37',
       },
     };
-  },
-  components: {
-    Header,
   },
 };
 </script>
