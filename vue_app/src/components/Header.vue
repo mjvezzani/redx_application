@@ -3,6 +3,7 @@
     <router-link to="/photos">Photos</router-link>
     <router-link to="/profile">Profile</router-link>
     <router-link to="/">Dashboard</router-link>
+    <a v-on:click="logout">Logout</a>
   </div>
 </template>
 
@@ -12,6 +13,12 @@ export default {
   data() {
     return {
     };
+  },
+  methods: {
+    logout() {
+      this.$store.state.loggedIn = false;
+      this.$router.replace('/');
+    },
   },
 };
 </script>

@@ -2,8 +2,9 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import DashboardPage from '@/components/DashboardPage';
 import Login from '@/components/Login';
-import Photos from '@/components/photos/Photos';
+import PhotosPage from '@/components/photos/PhotosPage';
 import ProfilePage from '@/components/profile/ProfilePage';
+import store from '@/store/store';
 
 Vue.use(Router);
 
@@ -23,11 +24,29 @@ export default new Router({
       path: '/profile',
       name: 'ProfilePage',
       component: ProfilePage,
+      beforeEnter: (to, from, next) => {
+        if (!store.state.loggedIn) {
+          next({
+            path: '/',
+            query: { redirect: to.fullPath },
+          });
+        }
+        next();
+      },
     },
     {
       path: '/photos',
-      name: 'Photos',
-      component: Photos,
+      name: 'PhotosPage',
+      component: PhotosPage,
+      beforeEnter: (to, from, next) => {
+        if (!store.state.loggedIn) {
+          next({
+            path: '/',
+            query: { redirect: to.fullPath },
+          });
+        }
+        next();
+      },
     },
   ],
 });
