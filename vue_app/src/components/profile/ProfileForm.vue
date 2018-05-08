@@ -1,23 +1,31 @@
 <template>
-  <form>
-    <label for="firstName">First Name</label>
-    <input type="text" id="firstName" v-model="$store.state.user.firstName">
-    <label for="lastName">Last Name</label>
-    <input type="text" id="lastName" v-model="$store.state.user.lastName">
-    <label for="email">Email</label>
-    <input type="email" id="email" v-model="$store.state.user.email">
+  <form @submit.prevent="update">
+    <label for="name">Name</label>
+    <input type="text" id="name" v-model="$store.state.user.name">
+    <button type="submit" v-on:click="update">Update Profile</button>
   </form>
 </template>
 
 <script>
+import Axios from 'axios';
 
 export default {
   name: 'Profile',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
     };
   },
+  methods: {
+    update() {
+      console.log(this.$store.state.user.id);
+      Axios.post('http://localhost:4000/api/users/' + this.$store.state.user.id,
+        { id: this.$store.state.user.id,
+          name: this.$store.state.user.name})
+        .then((response) => {
+          console.log(response);
+      });
+    }
+  }
 };
 </script>
 

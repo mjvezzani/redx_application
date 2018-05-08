@@ -1,10 +1,7 @@
 <template>
   <div>
     <h1>Profile</h1>
-    <p>{{ $store.state.user.firstName }}</p>
-    <p>{{ $store.state.user.lastName}}</p>
-    <p>{{ $store.state.user.email }}</p>
-    <p>{{ $store.state.user.phone }}</p>
+    <p>{{ $store.state.user.name }}</p>
   </div>
 </template>
 
@@ -15,12 +12,6 @@ export default {
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
-      user: {
-        name: 'Michael Vezzani',
-        email: 'mjvezzani@gmail.com',
-        phone: '209-201-9660',
-        number_of_photos: '37',
-      },
     };
   },
 };
