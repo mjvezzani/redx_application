@@ -28,6 +28,9 @@ export default {
       Axios.get('http://localhost:4000/api/users').then((response) => {
         const user = response.data.users.filter(obj => obj.name === this.name)[0];
         if (user !== undefined && user.password === this.password) {
+          this.$store.state.user.id = user.id;
+          this.$store.state.user.name = this.name;
+          console.log(this.$store.state.user.name);
           this.$store.state.loggedIn = true;
         } else {
           alert('Wrong Credentials!');
