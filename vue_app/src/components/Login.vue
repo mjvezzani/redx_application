@@ -1,9 +1,9 @@
 <template>
   <div>
     <form id="loginForm" @submit.prevent="login">
-      <label for="userEmail">Email Address</label>
-      <input v-model="email" type="email" id="userEmail"
-             placeholder="Your Email Address" required autofocus>
+      <label for="userName">User Name</label>
+      <input v-model="name" type="text" id="userName"
+             placeholder="Your User Name" required autofocus>
       <label for="userPassword">Password</label>
       <input v-model="password" type="password" id="userPassword"
             placeholder="Please type password" required>
@@ -13,18 +13,26 @@
 </template>
 
 <script>
+import Axios from 'axios';
 
 export default {
   name: 'Login',
   data() {
     return {
-      email: '',
+      name: '',
       password: '',
     };
   },
   methods: {
     login() {
-      this.$store.state.loggedIn = true;
+      Axios.get('http://localhost:4000/api/users').then((response) => {
+        const user = response.data.users.filter(obj => obj.name === this.name)[0];
+        if (user !== undefined && user.password === this.password) {
+          this.$store.state.loggedIn = true;
+        } else {
+          alert('Wrong Credentials!');
+        }
+      });
     },
   },
 };
