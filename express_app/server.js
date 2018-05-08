@@ -1,36 +1,31 @@
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database(':memory:');
+var express = require('express');
+var bodyParser = require('body-parser');
+var router = express.Router();
+var cors = require('cors');
 var multer = require('multer');
 var upload = multer({ dest: 'uploads/' });
-var type = upload.single('file');
-
-db.serialize(function () {
-  db.run("CREATE TABLE users (name TEXT)");
-  db.run("INSERT INTO users (name) VALUES (?)", "Mike Vezzani");
-  db.run("INSERT INTO users (name) VALUES (?)", "John Smith");
-  db.run("INSERT INTO users (name) VALUES (?)", "Barry Manilow");
-  db.run("CREATE TABLE photos (name TEXT, content BLOB)");
-});
-
-var express = require('express');
 var app = express();
-var bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(upload.array());
 app.use(express.static('public'));
+app.use(cors());
 
-var port = 8080;
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database(':memory:');
+db.serialize(function () {
+  db.run("CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT, password TEXT)");
+  db.run("INSERT INTO users (name, password) VALUES (?, ?)", "Mike Vezzani", "foobar");
+  db.run("INSERT INTO users (name, password) VALUES (?, ?)", "John Smith", "bazshiz");
+  db.run("INSERT INTO users (name, password) VALUES (?, ?)", "Barry Manilow", "ziglow");
+});
 
-var router = express.Router();
+var port = 4000;
+
 
 router.get('/', function(req, res) {
   res.json({ message: 'hooray! welcome to our api!' });
-});
-
-router.get('/users/:id', function(req, res) {
-  db.get("SELECT * FROM users WHERE id=?", id);
 });
 
 router.get('/users', function(req, res) {
@@ -39,9 +34,9 @@ router.get('/users', function(req, res) {
   });
 });
 
-router.post('/users', function(req, res) {
-  db.run("INSERT INTO users (name) VALUES (?)", req.body.name);
-  console.log(req.body.name + " added to users");
+router.post('/users/:id', function(req, res) {
+  db.run("UPDATE users SET name = (?) WHERE id = (?)", req.body.name, req.params.id);
+  console.log(req.body.name + " updated!");
   res.json({ message: "Success!" });
 });
 
@@ -51,11 +46,9 @@ router.get('/photos', function(req, res) {
   });
 });
 
-router.post('/photos', type, function(req, res, next) {
-  console.log("Saving in DB");
-  db.run("INSERT INTO photos (name, content) values (?, ?)", [req.file.name, req.file.buffer]);
-  console.log(req.file.name + " added to photos!");
-  res.json({message: "Success!"});
+router.post('/photos', upload.single('photo'), function(req, res, next) {
+  console.log(req.files);
+  next();
 });
 
 app.use('/api', router);
