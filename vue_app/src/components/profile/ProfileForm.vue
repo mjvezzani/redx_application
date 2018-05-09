@@ -17,15 +17,14 @@ export default {
   },
   methods: {
     update() {
-      console.log(this.$store.state.user.id);
-      Axios.post('http://localhost:4000/api/users/' + this.$store.state.user.id,
+      Axios.post(`http://localhost:4000/api/users/${this.$store.state.user.id}`,
         { id: this.$store.state.user.id,
-          name: this.$store.state.user.name})
+          name: this.$store.state.user.name })
         .then((response) => {
-          console.log(response);
-      });
-    }
-  }
+          response.json({ message: 'Success!!' });
+        });
+    },
+  },
 };
 </script>
 

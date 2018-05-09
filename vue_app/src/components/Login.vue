@@ -30,10 +30,9 @@ export default {
         if (user !== undefined && user.password === this.password) {
           this.$store.state.user.id = user.id;
           this.$store.state.user.name = this.name;
-          console.log(this.$store.state.user.name);
           this.$store.state.loggedIn = true;
         } else {
-          alert('Wrong Credentials!');
+          response.json({ message: 'There was an error' });
         }
       });
     },

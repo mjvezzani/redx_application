@@ -11,7 +11,7 @@
 <script>
 
 export default {
-  name: 'Photos',
+  name: 'PhotosSample',
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
