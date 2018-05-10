@@ -6,7 +6,6 @@
     <div v-show="$store.state.loggedIn">
       <Header />
       <Profile />
-      <PhotosSample />
     </div>
   </div>
 </template>
@@ -14,18 +13,12 @@
 <script>
 import Header from '@/components/Header';
 import Profile from '@/components/profile/Profile';
-import PhotosSample from '@/components/photos/PhotosSample';
 import Login from '@/components/Login';
 
 export default {
   name: 'Dashboard',
-  data() {
-    return {
-      msg: 'Welcome to Your Vue.js App',
-    };
-  },
   components: {
-    Header, Profile, PhotosSample, Login,
+    Header, Profile, Login,
   },
 };
 </script>

@@ -13,10 +13,6 @@ import ProfileForm from '@/components/profile/ProfileForm';
 
 export default {
   name: 'ProfilePage',
-  data() {
-    return {
-    };
-  },
   components: {
     Header, Profile, ProfileForm,
   },

@@ -43,7 +43,9 @@ export default {
         const photo = response.data.photo;
         const newPhoto = Object.create({ filename: photo.name, owner: photo.owner });
         this.photos.push(newPhoto);
+        this.$forceUpdate();
       });
+      this.$forceUpdate();
     },
   },
   beforeCreate() {

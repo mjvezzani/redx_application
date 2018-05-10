@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="update">
+  <form @submit.prevent="updateProfileInfo">
     <label for="name">Name</label>
     <input type="text" id="name" v-model="$store.state.user.name">
     <button type="submit" v-on:click="update">Update Profile</button>
@@ -11,12 +11,8 @@ import Axios from 'axios';
 
 export default {
   name: 'Profile',
-  data() {
-    return {
-    };
-  },
   methods: {
-    update() {
+    updateProfileInfo() {
       Axios.post(`http://localhost:4000/api/users/${this.$store.state.user.id}`,
         { id: this.$store.state.user.id,
           name: this.$store.state.user.name })
