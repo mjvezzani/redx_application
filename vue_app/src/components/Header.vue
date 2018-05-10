@@ -9,11 +9,7 @@
 
 <script>
 export default {
-  name: 'NavigationHeader',
-  data() {
-    return {
-    };
-  },
+  name: 'Header',
   methods: {
     logout() {
       this.$store.state.loggedIn = false;
