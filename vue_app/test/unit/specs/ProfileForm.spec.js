@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import Axios from 'axios';
 import router from '@/router';
 import ProfileForm from '@/components/profile/ProfileForm';
 
@@ -9,18 +10,16 @@ describe('ProfileForm.vue', () => {
     const store = new Vuex.Store({ storeData });
     const Constructor = Vue.extend(ProfileForm);
     const vm = new Constructor({ store, router }).$mount();
-    console.log('*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*');
-    console.log(vm.$el);
-    console.log(vm.$store);
-    vm.$el.getElementById('name').value = "Michael Vezzani";
+    //vm.$store.state.user.name = 'Michael Vezzani';
+    sinon.spy(Axios, 'post');
 
-    expectedParameters = 'http://localhost:4000/api/users/1', {
+    const expectedParameters = ['http://localhost:4000/api/users/1', {
       id: '1',
       name: 'Michael Vezzani'
-    };
+    }];
 
-    spyOn(Axios, 'post');
-
-    expect(Axios.post).toHaveBeenCalledWith(expectedParameters);
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+    console.log(vm.$el);
+    expect(Axios.post.withArgs(expectedParameters).calledOnce).to.be.true
   });
 });

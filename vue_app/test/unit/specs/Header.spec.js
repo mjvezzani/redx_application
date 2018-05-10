@@ -11,6 +11,6 @@ describe('Header.vue', () => {
     const vm = new Constructor({ store, router }).$mount();
     vm.logout();
     expect(vm.$store.state.loggedIn)
-      .toBe(false);
+      .to.equal(false);
   });
 });
