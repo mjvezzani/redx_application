@@ -2,7 +2,11 @@
     <form @submit.prevent="updateProfileInfo">
       <label for="name">Name</label>
       <input type="text" id="name" v-model="$store.state.user.name">
-      <button type="submit" v-on:click="update">Update Profile</button>
+      <label for="email">Email</label>
+      <input type="text" id="email" v-model="$store.state.user.email">
+      <label for="phone">Phone</label>
+      <input type="text" id="phone" v-model="$store.state.user.phone">
+      <button type="submit" v-on:click="updateProfileInfo">Update Profile</button>
     </form>
 </template>
 
@@ -15,9 +19,11 @@ export default {
     updateProfileInfo() {
       Axios.post(`http://localhost:4000/api/users/${this.$store.state.user.id}`,
         { id: this.$store.state.user.id,
-          name: this.$store.state.user.name })
-        .then((response) => {
-          response.json({ message: 'Success!!' });
+          name: this.$store.state.user.name,
+          email: this.$store.state.user.email,
+          phone: this.$store.state.user.phone,
+        })
+        .then(() => {
         });
     },
   },

@@ -8,6 +8,8 @@ const state = {
   user: {
     id: '',
     name: '',
+    email: '',
+    phone: '',
   },
 };
 

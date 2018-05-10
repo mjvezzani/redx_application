@@ -2,6 +2,8 @@
   <div>
     <h1>Profile</h1>
     <p>{{ $store.state.user.name }}</p>
+    <p>{{ $store.state.user.email }}</p>
+    <p>{{ $store.state.user.phone }}</p>
   </div>
 </template>
 
@@ -9,11 +11,6 @@
 
 export default {
   name: 'Profile',
-  data() {
-    return {
-      msg: 'Welcome to Your Vue.js App',
-    };
-  },
 };
 </script>
 

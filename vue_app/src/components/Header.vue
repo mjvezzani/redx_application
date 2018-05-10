@@ -3,7 +3,7 @@
     <router-link to="/photos">Photos</router-link>
     <router-link to="/profile">Profile</router-link>
     <router-link to="/">Dashboard</router-link>
-    <a v-on:click="logout">Logout</a>
+    <router-link v-on:click.native="logout" to="/">Logout</router-link>
   </div>
 </template>
 

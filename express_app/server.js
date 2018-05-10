@@ -14,11 +14,9 @@ app.use(fileUpload());
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database(':memory:');
 db.serialize(function () {
-  db.run("CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT, password TEXT)");
+  db.run("CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT, password TEXT, email TEXT, phone TEXT)");
   db.run("CREATE TABLE photos (id INTEGER PRIMARY KEY, filename TEXT, location TEXT, owner INTEGER)");
-  db.run("INSERT INTO users (name, password) VALUES (?, ?)", "Mike Vezzani", "foobar");
-  db.run("INSERT INTO users (name, password) VALUES (?, ?)", "John Smith", "bazshiz");
-  db.run("INSERT INTO users (name, password) VALUES (?, ?)", "Barry Manilow", "ziglow");
+  db.run("INSERT INTO users (name, password, email, phone) VALUES (?, ?, ?, ?)", "Mike Vezzani", "foobar", "mjvezzani@gmail.com", "209-201-9660");
 });
 
 var port = 4000;
@@ -35,7 +33,8 @@ router.get('/users', function(req, res) {
 });
 
 router.post('/users/:id', function(req, res) {
-  db.run("UPDATE users SET name = (?) WHERE id = (?)", req.body.name, req.params.id);
+  console.log(req);
+  db.run("UPDATE users SET name = (?), email = (?), phone = (?) WHERE id = (?)", req.body.name, req.body.email, req.body.phone, req.params.id);
   console.log(req.body.name + " updated!");
   res.json({ message: "Success!" });
 });

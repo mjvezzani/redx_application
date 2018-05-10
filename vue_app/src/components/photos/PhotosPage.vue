@@ -48,7 +48,6 @@ export default {
         this.photos.push(newPhoto);
         this.$forceUpdate();
       });
-      this.$forceUpdate();
     },
   },
   beforeCreate() {

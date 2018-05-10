@@ -29,8 +29,11 @@ export default {
         const user = response.data.users.filter(obj => obj.name === this.name)[0];
         if (user !== undefined && user.password === this.password) {
           this.$store.state.user.id = user.id;
-          this.$store.state.user.name = this.name;
+          this.$store.state.user.name = user.name;
+          this.$store.state.user.email = user.email;
+          this.$store.state.user.phone = user.phone;
           this.$store.state.loggedIn = true;
+          console.log(this.$store.state.email);
         } else {
           response.json({ message: 'There was an error' });
         }
