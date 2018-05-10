@@ -22,21 +22,21 @@ db.serialize(function () {
 var port = 4000;
 
 
-router.get('/', function(req, res) {
-  res.json({ message: 'hooray! welcome to our api!' });
-});
-
 router.get('/users', function(req, res) {
   db.all("SELECT * FROM users", function(err, rows){
     res.json({ users: rows });
   });
 });
 
+router.post('/users/', function(req, res) {
+  db.run("INSERT INTO users (name, password, email, phone) VALUES (?, ?, ?, ?)", req.body.name, req.body.password, req.body.email, req.body.phone);
+  res.json({ message: "Successfully registered " + req.body.name + "!"});
+});
+
 router.post('/users/:id', function(req, res) {
-  console.log(req);
   db.run("UPDATE users SET name = (?), email = (?), phone = (?) WHERE id = (?)", req.body.name, req.body.email, req.body.phone, req.params.id);
   console.log(req.body.name + " updated!");
-  res.json({ message: "Success!" });
+  res.json({ message: "Successfully updated " + req.body.name + "!"});
 });
 
 router.get('/photos', function(req, res) {
@@ -72,3 +72,5 @@ app.use('/api', router);
 
 app.listen(port);
 console.log("Server started on " + port);
+
+module.exports = app;
