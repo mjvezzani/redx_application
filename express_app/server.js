@@ -29,7 +29,7 @@ router.get('/users', function(req, res) {
 });
 
 router.post('/users/', function(req, res) {
-  db.run("INSERT INTO users (name, password, email, phone) VALUES (?, ?, ?, ?)", req.body.name, req.body.password, req.body.email, req.body.phone);
+  db.run("INSERT INTO users (name, password) VALUES (?, ?)", req.body.name, req.body.password);
   res.json({ message: "Successfully registered " + req.body.name + "!"});
 });
 

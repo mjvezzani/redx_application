@@ -1,14 +1,31 @@
 <template>
   <div>
-    <form id="loginForm" @submit.prevent="login">
-      <label for="userName">User Name</label>
-      <input v-model="name" type="text" id="userName"
-             placeholder="Your User Name" required autofocus>
-      <label for="userPassword">Password</label>
-      <input v-model="password" type="password" id="userPassword"
-            placeholder="Please type password" required>
-      <button type="submit">Sign In</button>
-    </form>
+    <div v-if="!registering" id="loggingIn">
+      <h2>Login</h2>
+      <form id="loginForm" @submit.prevent="login">
+        <label for="userName">User Name</label>
+        <input v-model="name" type="text" id="userName"
+               placeholder="Your User Name" required autofocus>
+        <label for="userPassword">Password</label>
+        <input v-model="password" type="password" id="userPassword"
+              placeholder="Please type password" required>
+        <button type="submit">Sign In</button>
+      </form>
+    </div>
+    <div v-else id="userRegistration">
+      <h2>Register</h2>
+      <form @submit.prevent="register">
+        <label for="registerUserName">User Name</label>
+        <input v-model="name" type="text" id="registerUserName"
+               placeholder="Your User Name" required>
+        <label for="registerUserPassword">Password</label>
+        <input v-model="password" type="password" id="registerUserPassword"
+              placeholder="Please type password" required>
+        <button type="submit">Sign In</button>
+      </form>
+    </div>
+    <p v-on:click="switchToLogin">Login here</p>
+    <p v-on:click="switchToRegister">Register here</p>
   </div>
 </template>
 
@@ -21,6 +38,7 @@ export default {
     return {
       name: '',
       password: '',
+      registering: false,
     };
   },
   methods: {
@@ -38,6 +56,20 @@ export default {
           response.json({ message: 'There was an error' });
         }
       });
+    },
+    register() {
+      const formData = new FormData();
+      formData.append('name', this.name);
+      formData.append('password', this.password);
+      Axios.post('http://localhost:4000/api/users', formData).then(() => {
+        this.login();
+      });
+    },
+    switchToLogin() {
+      this.registering = false;
+    },
+    switchToRegister() {
+      this.registering = true;
     },
   },
 };

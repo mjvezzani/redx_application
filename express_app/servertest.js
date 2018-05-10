@@ -38,9 +38,7 @@ describe('Api', () => {
       request(app)
         .post('/api/users/')
         .set('Content-Type', 'application/json')
-        .send({name: 'Ziggi Pop',
-          email: 'ziggi@popmail.com',
-          phone: '5558579261'})
+        .send({name: 'Ziggi Pop', password: 'guitar'})
         .expect('Content-Type', /json/)
         .expect(200, (err, res) => {
           if (err) { return done(err); }
