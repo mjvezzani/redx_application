@@ -4,7 +4,7 @@
     <div>
       <ul id="photos">
         <li v-for="photo in photos" :key="photo.id">
-          <img v-bind:src="filepath(photo)" />
+          <img v-bind:src="photo.filepath" />
         </li>
       </ul>
     </div>
@@ -23,14 +23,13 @@ export default {
   name: 'PhotosPage',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
       photos: null,
       photo: null,
     };
   },
   methods: {
-    filepath(photo) {
-      return `../../../static/${photo.filename}`;
+    filepath(name) {
+      return `../../../static/${name}`;
     },
     fileSelected(event) {
       this.photo = event.target.files[0];
@@ -39,9 +38,13 @@ export default {
       const formData = new FormData();
       formData.append('photo', this.photo, this.photo.name);
       formData.append('owner', this.$store.state.user.id);
+      formData.append('location', this.filepath(this.photo.name));
       Axios.post('http://localhost:4000/api/photos/', formData).then((response) => {
         const photo = response.data.photo;
-        const newPhoto = Object.create({ filename: photo.name, owner: photo.owner });
+        const newPhoto = Object.create({ filename: photo.name,
+          owner: photo.owner,
+          filepath: photo.filepath,
+        });
         this.photos.push(newPhoto);
         this.$forceUpdate();
       });

@@ -52,17 +52,18 @@ router.post('/photos', function(req, res, next) {
    
   let photo = req.files.photo;
   let owner = req.body.owner;
-  let photoLocation = '../vue_app/static';
+  let filepath = req.body.location;
 
-  photo.mv(`${photoLocation}/${photo.name}`, function(err) {
+  photo.mv(`../vue_app/static/${photo.name}`, function(err) {
     if (err)
       return res.status(500).send(err);
  
-    db.run("INSERT INTO photos (filename, location, owner) VALUES (?, ?, ?)", photo.name, photoLocation, owner);
+    db.run("INSERT INTO photos (filename, location, owner) VALUES (?, ?, ?)", photo.name, filepath, owner);
     res.json({photo:
       {
         name: photo.name,
-        owner: owner
+        owner: owner,
+        filepath: filepath
       }
     });
   });
