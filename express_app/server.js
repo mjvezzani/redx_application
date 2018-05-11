@@ -45,7 +45,7 @@ router.get('/photos', function(req, res) {
   });
 });
 
-router.post('/photos', function(req, res, next) {
+router.post('/photos', function(req, res) {
   if (!req.files)
       return res.status(400).send('No files were uploaded.');
    
@@ -54,6 +54,24 @@ router.post('/photos', function(req, res, next) {
   let filepath = req.body.location;
 
   photo.mv(`../vue_app/static/${photo.name}`, function(err) {
+//  This is what I originally tried in order to prevent execution from
+//  continuing, which was causing the browser to try and access a file
+//  that hadn't finished being moved, thus resulting in a broken image
+//  in the browser. However, execution seemed to continue to the
+//  db.run statement and when the Vue.js code rendered the view, the
+//  image would still be broken. I was only able to fix this issue at
+//  the frontend code level.
+//    if (err) {
+//      return res.status(500).send(err);
+//    } else {
+//      const intervalId = setInterval(() => {
+//        if(fs.accessSync(`../vue_app/static/${photo.name}`, fs.constants.F_OK) == undefined) {
+//          clearInterval(intervalId);
+//        }
+//      }, 2000);
+//    }
+
+
     if (err)
       return res.status(500).send(err);
  
