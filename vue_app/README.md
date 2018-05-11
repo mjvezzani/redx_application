@@ -1,30 +1,18 @@
-# vue_app
+## Vue.js photo uploading application
 
-> A simple photo browser
+This project provides the front end experience for a simple photo upload
+application. It makes calls to an Express REST api backend to retrieve
+data and display it in various components.
 
-## Build Setup
+It provides 3 routes: `/`, `/profile`, and `/photos`. At the root, you will
+simply see your profile details. At `/profile` you can edit and update
+your profile details. At `/photos` you can see your photo collection and
+upload more photos.
 
-``` bash
-# install dependencies
-npm install
+Photos that are uploaded end up getting placed in the `static` directory.
 
-# serve with hot reload at localhost:8080
-npm run dev
+The project leverages Vuex to manage global state for the user.
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+Presently the unit test coverage for this project is weak at best. Learning
+best practices for unit testing javascript framework components is a
+skill upon which I am trying to improve.
